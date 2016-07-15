@@ -15,5 +15,12 @@
   "bugs": {
     "url": "https://github.com/nropatas/twitter-stream/issues"
   },
-  "homepage": "https://github.com/nropatas/twitter-stream#readme"
+  "homepage": "https://github.com/nropatas/twitter-stream#readme",
+  "dependencies": {
+    "express": "^4.14.0"
+  },
+  "devDependencies": {
+    "babel-eslint": "^6.1.2",
+    "eslint": "^3.0.1"
+  }
 }
