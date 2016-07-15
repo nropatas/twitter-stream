@@ -1,7 +1,7 @@
 'use strict';
 
 const nconf = require('nconf');
-const nodeEnv = process.env.NODE_ENV || 'developement';
+const nodeEnv = process.env.NODE_ENV || 'development';
 
 nconf.argv()
     .env()
