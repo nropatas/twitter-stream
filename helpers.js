@@ -11,7 +11,7 @@ hbs.registerHelper('formatDate', (date) => {
     let now = moment();
     let tweetDate = moment(date);
 
-    if (now.diff(tweetDate, 'days') <= 7) {
+    if (now.diff(tweetDate, 'days') < 1) {
         return tweetDate.fromNow();
     } else {
         return tweetDate.format('MMMM Do YYYY, h:mm:ss a');
