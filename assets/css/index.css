@@ -1,0 +1,16 @@
+.tweet {
+    margin-top: 10px;
+    border: 1px solid lightgrey;
+    padding: 10px;
+}
+
+.avatar {
+    float: left;
+    margin-right: 10px;
+}
+
+.date {
+    float: right;
+    font-size: 10px;
+    color: lightgrey;
+}

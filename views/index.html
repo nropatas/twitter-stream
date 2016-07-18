@@ -1,0 +1,32 @@
+<html>
+    <head>
+            <title>Tweet Filtering</title>
+            <link rel="stylesheet" type="text/css" href="../static/css/style.css">
+    </head>
+
+    <body>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-20"></div>
+
+                <div class="col-md-60">
+                    {{#each data}}
+                        <div class="row tweet">
+                            <div class="avatar"><img src="{{avatar}}" class="img-rounded"></div>
+                            <div>
+                                <div class="date">{{formatDate time}}</div>
+                                {{name}} @{{username}}<br>
+                                {{text}}
+                            </div>
+                        </div>
+                    {{/each}}
+                </div>
+
+                <div class="col-md-20"></div>
+            </div>
+        </div>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <script src="../public/js/bootstrap.js"></script>
+    </body>
+</html>
