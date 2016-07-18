@@ -7,6 +7,10 @@ const index = require('./controllers/index');
 
 const routes = [
     {
+        path: '/',
+        handler: index.showFeed
+    },
+    {
         path: '/filter',
         handler: index.fetch
     }
