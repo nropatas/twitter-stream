@@ -3,6 +3,10 @@
 const hbs = require('hbs');
 const moment = require('moment');
 
+function linkTag(output, url, linkText) {
+    return output.replace(linkText, `<a href="${url}" target="_blank">${linkText}</a>`);
+}
+
 hbs.registerHelper('formatDate', (date) => {
     return moment(date).format('MMMM Do YYYY, h:mm:ss a');
 });
@@ -11,21 +15,21 @@ hbs.registerHelper('showLinks', (text, entities) => {
     let output = text;
 
     entities.urls.forEach((url) => {
-        output = output.replace(url.url, `<a href="${url.expanded_url}" target="_blank">${url.url}</a>`);
+        output = linkTag(output, url.expanded_url, url.url);
     });
 
     if (entities.media) {
         entities.media.forEach((item) => {
-            output = output.replace(item.url, `<a href="${item.expanded_url}" target="_blank">${item.url}</a>`);
+            output = linkTag(output, item.expanded_url, item.url);
         });
     }
 
     entities.user_mentions.forEach((user) => {
-        output = output.replace(`@user.screen_name`, `<a href="http://twitter.com/${user.screen_name}" target="_blank">@${user.screen_name}</a>`);
+        output = linkTag(output, `http://twitter.com/${user.username}`, `@${user.screen_name}`);
     });
 
     entities.hashtags.forEach((tag) => {
-        output = output.replace(`#${tag.text}`, `<a href="http://twitter.com/hashtag/${tag.text}" target="_blank">#${tag.text}</a>`);
+        output = linkTag(output, `http://twitter.com/hashtag/${tag.text}`, `#${tag.text}`);
     });
 
     return new hbs.SafeString(output);
@@ -46,5 +50,5 @@ hbs.registerHelper('showImg', (entities) => {
 });
 
 hbs.registerHelper('linkToUser', (name, username) => {
-    return new hbs.SafeString(name.replace(name, `<a href="http://twitter.com/${username}" target="_blank">${name}</a>`));
+    return new hbs.SafeString(linkTag(name, `http://twitter.com/${username}`, name));
 });
