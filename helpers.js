@@ -8,7 +8,14 @@ function linkTag(output, url, linkText) {
 }
 
 hbs.registerHelper('formatDate', (date) => {
-    return moment(date).format('MMMM Do YYYY, h:mm:ss a');
+    let now = moment();
+    let tweetDate = moment(date);
+
+    if (now.diff(tweetDate, 'days') <= 7) {
+        return tweetDate.fromNow();
+    } else {
+        return tweetDate.format('MMMM Do YYYY, h:mm:ss a');
+    }
 });
 
 hbs.registerHelper('showLinks', (text, entities) => {
