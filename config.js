@@ -8,6 +8,7 @@ nconf.argv()
     .defaults({
         NODE_ENV: nodeEnv,
         PORT: 3000,
+        TABLE_NAME: 'tweets',
         TWITTER_CONSUMER_KEY: 'A61XsF3kIZRa3g8SEWa4j8rA9',
         TWITTER_CONSUMER_SECRET: '58dP59jpArcWzdGncG1N4VAdXooBJFKXxKhQ3mUPQu0VmmM7WR',
         TWITTER_ACCESS_TOKEN_KEY: '137725279-s3MIPFqG5KC5wVlkSylBrHDhHd86olyNnxNJIn82',

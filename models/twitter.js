@@ -10,7 +10,6 @@ const client = new Twitter({
     access_token_secret: config.get('TWITTER_ACCESS_TOKEN_SECRET')
 });
 
-const tableName = 'tweets';
 let stream;
 
 function storeTweet(tweet) {
@@ -21,7 +20,7 @@ function storeTweet(tweet) {
             coordinates = JSON.stringify(tweet.coordinates.coordinates);
         }
 
-        db(tableName).insert({
+        db(config.get('TABLE_NAME')).insert({
             username: tweet.user.screen_name,
             name: tweet.user.name,
             avatar: tweet.user.profile_image_url,
