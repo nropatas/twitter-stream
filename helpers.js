@@ -21,7 +21,7 @@ hbs.registerHelper('showLinks', (text, entities) => {
     }
 
     entities.user_mentions.forEach((user) => {
-        output = output.replace(user.screen_name, `<a href="http://twitter.com/${user.screen_name}" target="_blank">${user.screen_name}</a>`);
+        output = output.replace(`@user.screen_name`, `<a href="http://twitter.com/${user.screen_name}" target="_blank">@${user.screen_name}</a>`);
     });
 
     entities.hashtags.forEach((tag) => {
@@ -43,4 +43,8 @@ hbs.registerHelper('showImg', (entities) => {
     }
 
     return new hbs.SafeString(output);
+});
+
+hbs.registerHelper('linkToUser', (name, username) => {
+    return new hbs.SafeString(name.replace(name, `<a href="http://twitter.com/${username}" target="_blank">${name}</a>`));
 });
