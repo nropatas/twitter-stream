@@ -14,9 +14,14 @@
                         <div class="row tweet">
                             <div class="avatar"><img src="{{avatar}}" class="img-rounded"></div>
                             <div>
-                                <div class="date">{{formatDate time}}</div>
-                                {{name}} @{{username}}<br>
-                                {{text}}
+                                <div>
+                                    <div class="date">{{formatDate time}}</div>
+                                    {{name}} @{{username}}<br>
+                                    {{showLinks text entities}}
+                                </div>
+                                <div class="image">
+                                    {{showImg entities}}
+                                </div>
                             </div>
                         </div>
                     {{/each}}

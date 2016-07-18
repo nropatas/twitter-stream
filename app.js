@@ -6,11 +6,7 @@ const app = express();
 const config = require('./config');
 const path = require('path');
 const hbs = require('hbs');
-const moment = require('moment');
-
-hbs.registerHelper('formatDate', (date) => {
-    return moment(date).format('MMMM Do YYYY, h:mm:ss a');
-});
+require('./helpers');
 
 app.set('port', config.get('PORT'));
 app.set('views', path.join(__dirname, 'views'));
