@@ -5,7 +5,7 @@
     </head>
 
     <body>
-        <div id="nav-placeholder"></div>
+        {{> nav}}
 
         <section class="container">
             {{#each data}}
@@ -27,8 +27,5 @@
 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <script src="../static/js/bootstrap.js"></script>
-        <script>
-            $('#nav-placeholder').load('../static/html/nav.html');
-        </script>
     </body>
 </html>

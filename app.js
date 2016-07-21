@@ -12,6 +12,7 @@ app.set('port', config.get('PORT'));
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'html');
 app.engine('html', hbs.__express);
+hbs.registerPartials(path.join(__dirname, 'views', 'partials'));
 app.use('/static', express.static('public'));
 app.use('/', require('./routes'));
 
