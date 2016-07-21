@@ -16,6 +16,11 @@ nav .container {
 .avatar {
     float: left;
     margin-right: 10px;
+    width: 50px;
+}
+
+.avatar img {
+    width: 100%;
 }
 
 .date {
