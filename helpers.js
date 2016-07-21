@@ -18,35 +18,41 @@ hbs.registerHelper('formatDate', (date) => {
     }
 });
 
-hbs.registerHelper('showLinks', (text, entities) => {
+hbs.registerHelper('showLinks', (text, hashtags, urls, mentions, media) => {
     let output = text;
 
-    entities.urls.forEach((url) => {
-        output = linkTag(output, url.expanded_url, url.url);
-    });
+    if (hashtags) {
+        hashtags.forEach((tag) => {
+            output = linkTag(output, `http://twitter.com/hashtag/${tag.text}`, `#${tag.text}`);
+        });
+    }
 
-    if (entities.media) {
-        entities.media.forEach((item) => {
+    if (urls) {
+        urls.forEach((url) => {
+            output = linkTag(output, url.expanded_url, url.url);
+        });
+    }
+
+    if (mentions) {
+        mentions.forEach((user) => {
+            output = linkTag(output, `http://twitter.com/${user.username}`, `@${user.screen_name}`);
+        });
+    }
+
+    if (media) {
+        media.forEach((item) => {
             output = linkTag(output, item.expanded_url, item.url);
         });
     }
 
-    entities.user_mentions.forEach((user) => {
-        output = linkTag(output, `http://twitter.com/${user.username}`, `@${user.screen_name}`);
-    });
-
-    entities.hashtags.forEach((tag) => {
-        output = linkTag(output, `http://twitter.com/hashtag/${tag.text}`, `#${tag.text}`);
-    });
-
     return new hbs.SafeString(output);
 });
 
-hbs.registerHelper('showImg', (entities) => {
+hbs.registerHelper('showImg', (media) => {
     let output = '';
 
-    if (entities.media) {
-        entities.media.forEach((item) => {
+    if (media) {
+        media.forEach((item) => {
             if (item.type === 'photo') {
                 output += `<a href="${item.media_url}" target="_blank"><img src="${item.media_url}" class="image"></a>`;
             }
