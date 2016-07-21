@@ -12,8 +12,20 @@ const client = new Twitter({
 
 let stream;
 
+function checkEntity(entity) {
+    if (entity && entity.length > 0) {
+        return JSON.stringify(entity);
+    }
+
+    return null;
+}
+
 function storeTweet(tweet) {
     return new Promise((fulfill, reject) => {
+        let hashtags = checkEntity(tweet.entities.hashtags);
+        let urls = checkEntity(tweet.entities.urls);
+        let mentions = checkEntity(tweet.entities.user_mentions);
+        let media = checkEntity(tweet.entities.media);
         let coordinates = null;
 
         if (tweet.coordinates) {
@@ -25,7 +37,10 @@ function storeTweet(tweet) {
             name: tweet.user.name,
             avatar: tweet.user.profile_image_url,
             text: tweet.text,
-            entities: JSON.stringify(tweet.entities),
+            hashtags: hashtags,
+            urls: urls,
+            mentions: mentions,
+            media: media,
             coordinates: coordinates,
             time: tweet.created_at
         })
