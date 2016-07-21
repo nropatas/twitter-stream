@@ -5,31 +5,23 @@
     </head>
 
     <body>
-        <div class="container">
-            <div class="row">
-                <div class="col-md-20"></div>
-
-                <div class="col-md-60">
-                    {{#each data}}
-                        <div class="row tweet">
-                            <div class="avatar"><img src="{{avatar}}" class="img-rounded"></div>
-                            <div>
-                                <div>
-                                    <div class="date">{{formatDate time}}</div>
-                                    {{linkToUser name username}} @{{username}}<br>
-                                    {{showLinks text entities}}
-                                </div>
-                                <div class="image">
-                                    {{showImg entities}}
-                                </div>
-                            </div>
+        <section class="container">
+            {{#each data}}
+                <div class="row tweet">
+                    <div class="avatar"><img src="{{avatar}}" class="img-rounded"></div>
+                    <div>
+                        <div>
+                            <div class="date">{{formatDate time}}</div>
+                            {{linkToUser name username}} @{{username}}<br>
+                            {{showLinks text entities}}
                         </div>
-                    {{/each}}
+                        <div class="image">
+                            {{showImg entities}}
+                        </div>
+                    </div>
                 </div>
-
-                <div class="col-md-20"></div>
-            </div>
-        </div>
+            {{/each}}
+        </section>
 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <script src="../public/js/bootstrap.js"></script>
