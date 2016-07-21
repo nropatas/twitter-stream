@@ -1,0 +1,29 @@
+<html>
+    <head>
+        <title>Tweet Filtering: Images</title>
+        <link rel="stylesheet" type="text/css" href="../static/css/style.css">
+    </head>
+
+    <body>
+        {{> nav}}
+
+        <section class="container">
+            {{#each data}}
+                {{#firstCol @index}}
+                    <div class="row">
+                {{/firstCol}}
+
+                        <div class="col-sm-4 img-container">
+                            <a href="http://twitter.com/statuses/{{tweet_id}}" target="_blank"><img src="{{img_url}}" class="img-thumbnail"></img></a>
+                        </div>
+
+                {{#lastCol @index}}
+                    </div>
+                {{/lastCol}}
+            {{/each}}
+        </section>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <script src="../static/js/bootstrap.js"></script>
+    </body>
+</html>

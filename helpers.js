@@ -7,6 +7,22 @@ function linkTag(output, url, linkText) {
     return output.replace(linkText, `<a href="${url}" target="_blank">${linkText}</a>`);
 }
 
+hbs.registerHelper('firstCol', (index, options) => {
+    if (index % 3 === 0) {
+        return options.fn(this);
+    }
+
+    return options.inverse(this);
+});
+
+hbs.registerHelper('lastCol', (index, options) => {
+    if (index % 3 === 2) {
+        return options.fn(this);
+    }
+
+    return options.inverse(this);
+});
+
 hbs.registerHelper('formatDate', (date) => {
     let now = moment();
     let tweetDate = moment(date);
