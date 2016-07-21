@@ -5,17 +5,13 @@ const model = require('../models/index');
 function index() {}
 
 index.prototype.showFeed = (req, res) => {
-    if (req.query.track) {
-        model.getTweetsFromDb(req.query.track)
-            .then((rows) => {
-                res.render('index', {
-                    data: rows
-                });
-            })
-            .catch(console.error);
-    } else {
-        throw new Error('track was not specified');
-    }
+    model.getTweetsFromDb()
+        .then((rows) => {
+            res.render('index', {
+                data: rows
+            });
+        })
+        .catch(console.error);
 };
 
 index.prototype.fetch = (req) => {
