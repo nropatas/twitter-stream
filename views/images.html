@@ -7,23 +7,26 @@
     <body>
         {{> nav}}
 
-        <section class="container">
+        <section class="container img-grid">
             {{#each data}}
-                {{#firstCol @index}}
-                    <div class="row">
-                {{/firstCol}}
-
-                        <div class="col-sm-4 img-container">
-                            <a href="http://twitter.com/statuses/{{tweet_id}}" target="_blank"><img src="{{img_url}}" class="img-thumbnail"></img></a>
-                        </div>
-
-                {{#lastCol @index}}
-                    </div>
-                {{/lastCol}}
+                <div class="img-container">
+                    <a href="http://twitter.com/statuses/{{tweet_id}}" target="_blank">
+                        <img src="{{img_url}}" class="img-responsive img-thumbnail"></img>
+                    </a>
+                </div>
             {{/each}}
         </section>
 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <script src="../static/js/bootstrap.js"></script>
+        <script src="../static/js/masonry.pkgd.min.js"></script>
+        <script src="../static/js/imagesloaded.pkgd.min.js"></script>
+        <script>
+            $('.img-grid').imagesLoaded(() => {
+                $('.img-grid').masonry({
+                    itemSelector: '.img-container'
+                });
+            });
+        </script>
     </body>
 </html>
