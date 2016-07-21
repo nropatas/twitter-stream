@@ -33,6 +33,7 @@ function storeTweet(tweet) {
         }
 
         db(config.get('TABLE_NAME')).insert({
+            tweet_id: tweet.id_str,
             username: tweet.user.screen_name,
             name: tweet.user.name,
             avatar: tweet.user.profile_image_url,
