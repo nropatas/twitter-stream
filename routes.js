@@ -5,6 +5,7 @@ const router = express.Router();
 
 const index = require('./controllers/index');
 const images = require('./controllers/images');
+const stats = require('./controllers/stats');
 
 const routes = [
     {
@@ -16,7 +17,7 @@ const routes = [
         handler: images.showImages
     },
     {
-        path: '/filter',
+        path: '/fetch',
         handler: index.fetch
     }
 ];
