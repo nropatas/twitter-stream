@@ -8,7 +8,10 @@ exports.up = function(knex) {
             table.string('name');
             table.string('avatar');
             table.string('text');
-            table.json('entities');
+            table.json('hashtags');
+            table.json('urls');
+            table.json('mentions');
+            table.json('media');
             table.json('coordinates');
             table.timestamp('time');
         });
