@@ -1,3 +1,8 @@
 .img-container {
     padding: 5px;
+    width: 32%;
+}
+
+.img-container img {
+    min-width: 100%;
 }
