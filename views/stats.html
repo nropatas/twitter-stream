@@ -36,7 +36,7 @@
 
             <div class="row">
                 <div class="stats-content">
-                    Hashtags:
+                    Top {{numTop}} Hashtags:
                     <div class="rankings">
                         {{#each hashtagRanking as |item|}}
                             <div class="row rankings-entry">
@@ -55,7 +55,7 @@
 
             <div class="row">
                 <div class="stats-content">
-                    URLs:
+                    Top {{numTop}} URLs:
                     <div class="rankings">
                         {{#each urlRanking as |item|}}
                             <div class="row rankings-entry">
@@ -74,9 +74,9 @@
 
             <div class="row">
                 <div class="stats-content">
-                    Top {{topTweets.[0]}} Tweets (by number of retweets):
+                    Top {{numTop}} Tweets (by number of retweets):
                     <div class="rankings">
-                        {{#each topTweets.[1]}}
+                        {{#each topTweets}}
                             <div class="row rankings-entry separate-line">
                                 <div class="col-xs-10 word-wrap">
                                     <a href="http://twitter.com/{{username}}" target="_blank">@{{username}}</a><br>
