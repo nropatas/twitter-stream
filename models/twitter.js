@@ -27,9 +27,14 @@ function storeTweet(tweet) {
         let mentions = checkEntity(tweet.entities.user_mentions);
         let media = checkEntity(tweet.entities.media);
         let coordinates = null;
+        let original_tweet = null;
 
         if (tweet.coordinates) {
             coordinates = JSON.stringify(tweet.coordinates.coordinates);
+        }
+
+        if (tweet.retweeted_status) {
+            original_tweet = tweet.retweeted_status.id_str;
         }
 
         db(config.get('TABLE_NAME')).insert({
@@ -44,7 +49,8 @@ function storeTweet(tweet) {
             media: media,
             coordinates: coordinates,
             time: tweet.created_at,
-            retweet_count: tweet.retweet_count
+            retweet_count: tweet.retweet_count,
+            original_tweet: original_tweet
         })
             .then(() => {
                 fulfill();
