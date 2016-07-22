@@ -9,7 +9,7 @@
 
         <section class="container">
             <div class="row">
-                <div class="col-sm-6 remove-padding">
+                <div class="col-sm-4 remove-padding">
                     <div class="stats-content">
                         Tweets with Media:
                         <canvas id="chart-media"></canvas>
@@ -17,11 +17,19 @@
                     </div>
                 </div>
 
-                <div class="col-sm-6 remove-padding">
+                <div class="col-sm-4 remove-padding">
                     <div class="stats-content">
                         Tweets with Urls:
                         <canvas id="chart-urls"></canvas>
                         <div class="percentage">{{percentUrls}} %</div>
+                    </div>
+                </div>
+
+                <div class="col-sm-4 remove-padding">
+                    <div class="stats-content">
+                        Retweets:
+                        <canvas id="chart-retweets"></canvas>
+                        <div class="percentage">{{percentRetweets}} %</div>
                     </div>
                 </div>
             </div>
@@ -63,6 +71,26 @@
                     </div>
                 </div>
             </div>
+
+            <div class="row">
+                <div class="stats-content">
+                    Top {{topTweets.[0]}} Tweets (by number of retweets):
+                    <div class="rankings">
+                        {{#each topTweets.[1]}}
+                            <div class="row rankings-entry separate-line">
+                                <div class="col-xs-10 word-wrap">
+                                    <a href="http://twitter.com/{{username}}" target="_blank">@{{username}}</a><br>
+                                    {{showLinks text hashtags urls mentions media}}
+                                </div>
+
+                                <div class="col-xs-2 align-right">
+                                    {{retweet_count}}
+                                </div>
+                            </div>
+                        {{/each}}
+                    </div>
+                </div>
+            </div>
         </section>
 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
@@ -72,14 +100,14 @@
         <script>
             'use strict';
 
-            function addPieChart(id, label, percent) {
+            function addPieChart(id, label1, label2, percent) {
                 let ctx = document.getElementById(id).getContext('2d');
                 let chart = new Chart(ctx, {
                     type: 'pie',
                     data: {
                         labels: [
-                            'with ' + label,
-                            'without ' + label
+                            label1,
+                            label2
                         ],
                         datasets: [
                             {
@@ -94,8 +122,9 @@
                 });
             }
 
-            addPieChart('chart-media', 'media', [{{percentMedia}}, 100 - {{percentMedia}}]);
-            addPieChart('chart-urls', 'urls', [{{percentUrls}}, 100 - {{percentUrls}}]);
+            addPieChart('chart-media', 'with media', 'without media', [{{percentMedia}}, 100 - {{percentMedia}}]);
+            addPieChart('chart-urls', 'with urls', 'without urls', [{{percentUrls}}, 100 - {{percentUrls}}]);
+            addPieChart('chart-retweets', 'retweets', 'original tweets', [{{percentRetweets}}, 100 - {{percentRetweets}}]);
         </script>
     </body>
 </html>
