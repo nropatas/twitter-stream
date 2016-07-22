@@ -32,3 +32,8 @@
 .word-wrap {
     word-wrap: break-word;
 }
+
+.separate-line {
+    padding-bottom: 5px;
+    border-bottom: 1px dotted lightgrey;
+}

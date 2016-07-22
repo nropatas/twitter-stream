@@ -97,4 +97,26 @@ stats.prototype.TweetsWithUrls = () => {
     });
 };
 
+stats.prototype.topTweets = (num) => {
+    return new Promise((fulfill, reject) => {
+        db(config.get('TABLE_NAME')).limit(num)
+            .whereNull('original_tweet')
+            .orderBy('retweet_count', 'desc')
+            .then(fulfill)
+            .catch(reject);
+    });
+};
+
+stats.prototype.retweets = () => {
+    return new Promise((fulfill, reject) => {
+        db(config.get('TABLE_NAME')).count('id as count')
+            .whereNotNull('original_tweet')
+            .then((rows) => {
+                let count = parseInt(rows[0].count, 10);
+                fulfill(count);
+            })
+            .catch(reject);
+    });
+};
+
 module.exports = new stats();
