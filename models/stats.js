@@ -6,12 +6,12 @@ const db = require('./db');
 const config = require('../config');
 
 function sortMap(map) {
-    let orderedKeys = Object.keys(map)
-        .sort((keyA, keyB) => {
-            return map.get(keyA) - map.get(keyB);
+    let orderedMap = Array.from(map.entries())
+        .sort((a, b) => {
+            return b[1] - a[1];
         });
 
-    return orderedKeys;
+    return orderedMap;
 }
 
 stats.prototype.countUrls = () => {
@@ -32,7 +32,7 @@ stats.prototype.countUrls = () => {
                     });
                 });
 
-                fulfill([urls, sortMap(urls)]);
+                fulfill(sortMap(urls));
             })
             .catch(reject);
     });
@@ -46,7 +46,7 @@ stats.prototype.countHashtags = () => {
 
                 rows.forEach((row) => {
                     row.hashtags.forEach((tag) => {
-                        let key = tag.text;
+                        let key = tag.text.toLowerCase();
 
                         if (tags.has(key)) {
                             tags.set(key, tags.get(key) + 1);
@@ -56,7 +56,7 @@ stats.prototype.countHashtags = () => {
                     });
                 });
 
-                fulfill([tags, sortMap(tags)]);
+                fulfill(sortMap(tags));
             })
             .catch(reject);
     });
