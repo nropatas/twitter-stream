@@ -9,27 +9,15 @@
 
         <section class="container">
             <div class="row">
-                <div class="col-sm-4 remove-padding">
-                    <div class="stats-content">
-                        Tweets with Media:
-                        <canvas id="chart-media"></canvas>
-                        <div class="percentage">{{percentMedia}} %</div>
-                    </div>
-                </div>
-
-                <div class="col-sm-4 remove-padding">
-                    <div class="stats-content">
-                        Tweets with Urls:
-                        <canvas id="chart-urls"></canvas>
-                        <div class="percentage">{{percentUrls}} %</div>
-                    </div>
-                </div>
-
-                <div class="col-sm-4 remove-padding">
-                    <div class="stats-content">
-                        Retweets:
-                        <canvas id="chart-retweets"></canvas>
-                        <div class="percentage">{{percentRetweets}} %</div>
+                <div class="stats-content">
+                    Overall:
+                    <div class="grey-text">
+                        <div id="chart"></div>
+                        <div align="center">
+                            <span class="media">&#9724;</span> Tweets with Media ({{percentMedia}}%)<br>
+                            <span class="retweets">&#9724;</span> Retweets ({{percentRetweets}}%)<br>
+                            <span class="urls">&#9724;</span> Tweets with URLs ({{percentUrls}}%)
+                        </div>
                     </div>
                 </div>
             </div>
@@ -99,36 +87,45 @@
 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <script src="../static/js/bootstrap.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.6/Chart.bundle.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.6/Chart.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.0/d3.js"></script>
+        <script src="../static/js/radial-progress-chart.js"></script>
         <script>
             'use strict';
 
-            function addPieChart(id, label1, label2, percent) {
-                let ctx = document.getElementById(id).getContext('2d');
-                let chart = new Chart(ctx, {
-                    type: 'pie',
-                    data: {
-                        labels: [
-                            label1,
-                            label2
-                        ],
-                        datasets: [
-                            {
-                                data: percent,
-                                backgroundColor: [
-                                    '#ff9999',
-                                    '#d3d3d3'
-                                ]
-                            }
-                        ]
+            let chart = new RadialProgressChart('#chart', {
+                diameter: 160,
+                stroke: {
+                    width: 50
+                },
+                shadow: {
+                    width: 0
+                },
+                animation: {
+                    duration: 3500
+                },
+                series: [{
+                    value: {{percentMedia}},
+                    labelStart: 'Media',
+                    color: {
+                        solid: '#79e1f4',
+                        background: '#d4ecfe'
                     }
-                });
-            }
-
-            addPieChart('chart-media', 'with media', 'without media', [{{percentMedia}}, 100 - {{percentMedia}}]);
-            addPieChart('chart-urls', 'with urls', 'without urls', [{{percentUrls}}, 100 - {{percentUrls}}]);
-            addPieChart('chart-retweets', 'retweets', 'original tweets', [{{percentRetweets}}, 100 - {{percentRetweets}}]);
+                }, {
+                    value: {{percentRetweets}},
+                    labelStart: 'RT',
+                    color: {
+                        solid: '#e99ac2',
+                        background: '#f1d2e3'
+                    }
+                }, {
+                    value: {{percentUrls}},
+                    labelStart: 'URLs',
+                    color: {
+                        solid: '#aee87a',
+                        background: '#dff0cb'
+                    }
+                }]
+            });
         </script>
     </body>
 </html>

@@ -37,3 +37,24 @@
     padding-bottom: 5px;
     border-bottom: 1px dotted lightgrey;
 }
+
+#chart {
+    text-align: center;
+    font-weight: bold;
+}
+
+.media {
+    color: #79e1f4;
+}
+
+.urls {
+    color: #aee87a;
+}
+
+.retweets {
+    color: #e99ac2;
+}
+
+.grey-text {
+    color: grey;
+}
