@@ -52,6 +52,54 @@ function storeTweet(tweet) {
     });
 }
 
+function storeKeywords(tweet) {
+    return new Promise((fulfill, reject) => {
+        let text = tweet.text;
+
+        if (tweet.entities.urls) {
+            tweet.entities.urls.forEach((url) => {
+                text = text.replace(url.url, '');
+            });
+        }
+
+        if (tweet.entities.user_mentions) {
+            tweet.entities.user_mentions.forEach((mention) => {
+                text = text.replace(`@${mention.screen_name}`, '');
+            });
+        }
+
+        if (tweet.entities.media) {
+            tweet.entities.media.forEach((media) => {
+                text = text.replace(media.url, '');
+            });
+        }
+
+        if (text.length > 3 && text.substring(0, 3) === 'RT ') {
+            text = text.substring(3);
+        }
+
+        text = text.replace(/[&\/\\,+()$~%.'":;*?<>{}]/g, ' ');
+        text = text.replace(/ +/g, ' ');
+
+        console.log(text);
+
+        let list = text.split(' ').filter((item, i, allItems) => {
+            return i === allItems.indexOf(item) && item !== '';
+        });
+
+        list.forEach((word) => {
+            db(config.get('KEYWORD_TABLE_NAME')).insert({
+                keyword: word,
+                time: tweet.created_at
+            })
+                .then(() => {
+                    fulfill();
+                })
+                .catch(reject);
+        });
+    });
+}
+
 function twitter() {}
 
 twitter.prototype.fetchTweets = (keyword) => {
@@ -68,6 +116,11 @@ twitter.prototype.fetchTweets = (keyword) => {
             console.log(`Successfully stored a new tweet with keyword '${keyword}'`);
         })
             .catch(console.error);
+
+        // storeKeywords(tweet).then(() => {
+        //     console.log('Finish recording keywords');
+        // })
+        //     .catch(console.error);
     });
 
     stream.on('error', console.error);
