@@ -1,0 +1,101 @@
+<html>
+    <head>
+        <title>Tweet Filtering: Statistics</title>
+        <link rel="stylesheet" type="text/css" href="../static/css/style.css">
+    </head>
+
+    <body>
+        {{> nav}}
+
+        <section class="container">
+            <div class="row">
+                <div class="col-sm-6 remove-padding">
+                    <div class="stats-content">
+                        Tweets with Media:
+                        <canvas id="chart-media"></canvas>
+                        <div class="percentage">{{percentMedia}} %</div>
+                    </div>
+                </div>
+
+                <div class="col-sm-6 remove-padding">
+                    <div class="stats-content">
+                        Tweets with Urls:
+                        <canvas id="chart-urls"></canvas>
+                        <div class="percentage">{{percentUrls}} %</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="stats-content">
+                    Hashtags:
+                    <div class="rankings">
+                        {{#each hashtagRanking as |item|}}
+                            <div class="row rankings-entry">
+                                <div class="col-xs-10 word-wrap">
+                                    <a href="http://twitter.com/hashtag/{{item.[0]}}" target="_blank">#{{item.[0]}}</a>
+                                </div>
+
+                                <div class="col-xs-2 align-right">
+                                    {{item.[1]}}
+                                </div>
+                            </div>
+                        {{/each}}
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="stats-content">
+                    URLs:
+                    <div class="rankings">
+                        {{#each urlRanking as |item|}}
+                            <div class="row rankings-entry">
+                                <div class="col-xs-10 word-wrap">
+                                    <a href="{{item.[0]}}" target="_blank">{{item.[0]}}</a>
+                                </div>
+
+                                <div class="col-xs-2 align-right">
+                                    {{item.[1]}}
+                                </div>
+                            </div>
+                        {{/each}}
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <script src="../static/js/bootstrap.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.6/Chart.bundle.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.6/Chart.min.js"></script>
+        <script>
+            'use strict';
+
+            function addPieChart(id, label, percent) {
+                let ctx = document.getElementById(id).getContext('2d');
+                let chart = new Chart(ctx, {
+                    type: 'pie',
+                    data: {
+                        labels: [
+                            'with ' + label,
+                            'without ' + label
+                        ],
+                        datasets: [
+                            {
+                                data: percent,
+                                backgroundColor: [
+                                    '#ff9999',
+                                    '#d3d3d3'
+                                ]
+                            }
+                        ]
+                    }
+                });
+            }
+
+            addPieChart('chart-media', 'media', [{{percentMedia}}, 100 - {{percentMedia}}]);
+            addPieChart('chart-urls', 'urls', [{{percentUrls}}, 100 - {{percentUrls}}]);
+        </script>
+    </body>
+</html>

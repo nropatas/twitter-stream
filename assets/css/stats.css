@@ -1,0 +1,34 @@
+.stats-content {
+    border: 1px solid lightgrey;
+    margin: 5px;
+    padding: 25px;
+}
+
+.remove-padding {
+    padding: 0px;
+}
+
+.percentage {
+    font-size: 50px;
+    font-weight: bold;
+    color: grey;
+    text-align: center;
+}
+
+.rankings {
+    width: 80%;
+    margin: 10px auto;
+    color: grey;
+}
+
+.rankings-entry {
+    margin-top: 10px;
+}
+
+.align-right {
+    text-align: right;
+}
+
+.word-wrap {
+    word-wrap: break-word;
+}
