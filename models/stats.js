@@ -101,6 +101,7 @@ stats.prototype.topTweets = (num) => {
     return new Promise((fulfill, reject) => {
         db(config.get('TABLE_NAME')).limit(num)
             .whereNull('original_tweet')
+            .whereNot('retweet_count', 0)
             .orderBy('retweet_count', 'desc')
             .then(fulfill)
             .catch(reject);

@@ -88,6 +88,10 @@
                                 </div>
                             </div>
                         {{/each}}
+
+                        {{#ifNoData topTweets}}
+                            <div align="center">There are no tweets that have been retweeted.</div>
+                        {{/ifNoData}}
                     </div>
                 </div>
             </div>
