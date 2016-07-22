@@ -23,6 +23,14 @@ hbs.registerHelper('lastCol', (index, options) => {
     return options.inverse(this);
 });
 
+hbs.registerHelper('ifNoData', (array, options) => {
+    if (array.length === 0) {
+        return options.fn(this);
+    }
+
+    return options.inverse(this);
+});
+
 hbs.registerHelper('formatDate', (date) => {
     let now = moment();
     let tweetDate = moment(date);
