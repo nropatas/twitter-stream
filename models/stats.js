@@ -5,16 +5,16 @@ function stats() {}
 const db = require('./db');
 const config = require('../config');
 
-function sortMap(map) {
+function sortMap(map, num) {
     let orderedMap = Array.from(map.entries())
         .sort((a, b) => {
             return b[1] - a[1];
         });
 
-    return orderedMap;
+    return orderedMap.slice(0, num);
 }
 
-stats.prototype.countUrls = () => {
+stats.prototype.countUrls = (num) => {
     return new Promise((fulfill, reject) => {
         db(config.get('TABLE_NAME')).whereNotNull('urls')
             .then((rows) => {
@@ -32,13 +32,13 @@ stats.prototype.countUrls = () => {
                     });
                 });
 
-                fulfill(sortMap(urls));
+                fulfill(sortMap(urls, num));
             })
             .catch(reject);
     });
 };
 
-stats.prototype.countHashtags = () => {
+stats.prototype.countHashtags = (num) => {
     return new Promise((fulfill, reject) => {
         db(config.get('TABLE_NAME')).whereNotNull('hashtags')
             .then((rows) => {
@@ -56,7 +56,7 @@ stats.prototype.countHashtags = () => {
                     });
                 });
 
-                fulfill(sortMap(tags));
+                fulfill(sortMap(tags, num));
             })
             .catch(reject);
     });
