@@ -17,6 +17,10 @@ const routes = [
         handler: images.showImages
     },
     {
+        path: '/stats',
+        handler: stats.showStats
+    },
+    {
         path: '/fetch',
         handler: index.fetch
     }
