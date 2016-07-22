@@ -43,7 +43,8 @@ function storeTweet(tweet) {
             mentions: mentions,
             media: media,
             coordinates: coordinates,
-            time: tweet.created_at
+            time: tweet.created_at,
+            retweet_count: tweet.retweet_count
         })
             .then(() => {
                 fulfill();
